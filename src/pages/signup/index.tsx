@@ -10,6 +10,7 @@ import {
   Heading,
   Input,
   Spacer,
+  useToast,
 } from '@chakra-ui/react'
 import { FormEvent, useState } from 'react'
 import {
@@ -22,8 +23,11 @@ import { FirebaseError } from '@firebase/util'
 export const Page = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const toast = useToast()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    setIsLoading(true)
     e.preventDefault()
     try {
       const auth = getAuth()
@@ -35,10 +39,22 @@ export const Page = () => {
       await sendEmailVerification(userCredential.user)
       setEmail('')
       setPassword('')
+      toast({
+        title: '確認メールを送信しました。',
+        status: 'success',
+        position: 'top',
+      })
     } catch (e) {
+      toast({
+        title: 'エラーが発生しました。',
+        status: 'error',
+        position: 'top',
+      })
       if (e instanceof FirebaseError) {
         console.log(e)
       }
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -75,7 +91,9 @@ export const Page = () => {
         </Grid>
         <Spacer height={4} aria-hidden />
         <Center>
-          <Button type={'submit'}>アカウントを作成</Button>
+          <Button type={'submit'} isLoading={isLoading}>
+            アカウントを作成
+          </Button>
         </Center>
       </chakra.form>
     </Container>
