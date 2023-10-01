@@ -44,7 +44,7 @@ export const Header = () => {
     <chakra.header py={4} bgColor={'blue.600'}>
       <Container maxW={'container.lg'}>
         <Flex>
-          <Link href={'/'} passHref>
+          <Link href={'/'} passHref legacyBehavior>
             <chakra.a
               _hover={{
                 opacity: 0.8,
@@ -64,7 +64,7 @@ export const Header = () => {
               </MenuList>
             </Menu>
           ) : (
-            <Link href={'/signin'} passHref>
+            <Link href={'/signin'} passHref legacyBehavior>
               <Button as={'a'} colorScheme={'teal'}>
                 サインイン
               </Button>
@@ -73,5 +73,5 @@ export const Header = () => {
         </Flex>
       </Container>
     </chakra.header>
-  )
+  );
 }
