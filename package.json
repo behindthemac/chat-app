@@ -21,6 +21,7 @@
     "firebase": "^10.4.0",
     "framer-motion": "^10.16.4",
     "next": "latest",
+    "pathpida": "^0.22.0",
     "react": "latest",
     "react-dom": "latest"
   },
